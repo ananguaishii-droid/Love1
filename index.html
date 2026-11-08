@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>10 Months Anniversary 💗 อั่ยอ้น</title>
+<style>
+:root {
+  --pink: #FFD6E7;
+  --blue: #D6EEFF;
+  --white: #FFFDFE;
+  --light-pink: #FFEAF2;
+  --lavender: #EDE4FF;
+  --text: #5a4a5a;
+  --accent: #ff8fb8;
+  --deep: #ff6b9d;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #FFD6E7 0%, #D6EEFF 50%, #EDE4FF 100%);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+#bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+.scene {
+  display:none; min-height:100vh; padding:1.5rem 1rem;
+  position:relative; z-index:2;
+  align-items:center; justify-content:center;
+  flex-direction:column;
+}
+.scene.active { display:flex; }
+.card {
+  background: rgba(255,253,254,0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 28px;
+  padding: 2rem 1.5rem;
+  max-width: 520px;
+  width:100%;
+  text-align:center;
+  box-shadow: 0 20px 50px rgba(255,140,180,0.25);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+h1, h2 { color: var(--deep); font-weight:700; line-height:1.3; }
+.big { font-size: clamp(1.8rem, 7vw, 2.8rem); margin-bottom:0.5rem; }
+.sub { font-size:1.15rem; opacity:0.9; margin-bottom:1.5rem; }
+
+.btn {
+  background: linear-gradient(135deg, #ffb3d9, #d6eeff);
+  border:none; padding:1rem 1.8rem; border-radius:50px;
+  font-size:1.05rem; font-weight:600; cursor:pointer;
+  margin:0.4rem; color:var(--text);
+  box-shadow: 0 6px 20px rgba(255,140,180,0.35);
+  transition: all .25s ease;
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: linear-gradient(135deg, #ff8fb8, #ffb3d9); color:white; }
+
+.envelope-wrap { perspective:800px; margin:1.5rem 0; }
+.envelope {
+  width:260px; height:170px; margin:0 auto; position:relative;
+  transform-style:preserve-3d; transition: transform .6s;
+}
+.envelope-body {
+  background: linear-gradient(160deg, #fff 0%, #FFEAF2 100%);
+  width:100%; height:100%; border-radius:12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.12);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative;
+}
+.flap {
+  position:absolute; top:0; left:0; width:100%; height:55%;
+  background: linear-gradient(180deg, #fff, #FFEAF2);
+  border-radius:12px 12px 0 0;
+  transform-origin: top center;
+  transition: transform 1s cubic-bezier(.2,.8,.2,1);
+  z-index:3;
+  box-shadow: 0 -4px 12px rgba(0,0,0,.06);
+}
+.seal {
+  position:absolute; top:42%; left:50%; transform:translate(-50%,-50%);
+  width:54px; height:54px; background:var(--accent);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:white; font-size:1.6rem; z-index:4;
+  box-shadow: 0 0 25px var(--accent);
+  transition: all .4s;
+}
+.envelope.open .flap { transform: rotateX(170deg); }
+.envelope.open .seal { transform:translate(-50%,-50%) scale(0); opacity:0; }
+.env-text { font-style:italic; color:var(--deep); margin-top:.8rem; font-size:.95rem; }
+
+.pass-display {
+  font-size:2.4rem; letter-spacing:.6rem; margin:1.2rem 0;
+  color:var(--accent); font-weight:600; min-height:3rem;
+}
+.keypad {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem;
+  max-width:280px; margin:1rem auto;
+}
+.keypad button {
+  padding:1.1rem; font-size:1.4rem; border-radius:16px;
+  background:white; border:2px solid var(--pink); cursor:pointer;
+  font-weight:600;
+}
+.keypad button:active { background:var(--light-pink); }
+
+.gallery {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem;
+  margin:1.5rem 0; min-height:120px;
+}
+.polaroid {
+  background:white; padding:8px 8px 36px 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  border-radius:4px; max-width:160px; cursor:pointer;
+  transform: rotate(var(--r, -2deg));
+  transition: transform .3s;
+}
+.polaroid:hover { transform: rotate(0) scale(1.06); z-index:5; }
+.polaroid img { width:100%; height:140px; object-fit:cover; display:block; border-radius:2px; }
+.polaroid p { font-size:.75rem; text-align:center; margin-top:4px; color:#888; }
+
+.letter {
+  background: #fffef8;
+  max-width:480px; padding:2.2rem 1.6rem;
+  border-radius:8px; border:10px solid #FFEAF2;
+  box-shadow: 0 15px 40px rgba(255,140,180,.2);
+  text-align:left; line-height:1.85; font-size:1.05rem;
+  position:relative;
+}
+.letter::before { content:'♡'; position:absolute; top:12px; right:18px; font-size:1.8rem; color:#ffb3d9; }
+
+.gift {
+  width:180px; height:140px; margin:1.5rem auto; position:relative; cursor:pointer;
+}
+.gift-body { width:100%; height:100%; background:linear-gradient(145deg,#ffb3d9,#ff8fb8); border-radius:12px; box-shadow:0 12px 25px rgba(0,0,0,.15); }
+.gift-lid {
+  position:absolute; top:-28px; left:-8px; width:110%; height:36px;
+  background:#FFEAF2; border-radius:6px;
+  transform-origin: bottom center; transition: transform 1s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 6px 12px rgba(0,0,0,.1);
+}
+.gift.open .gift-lid { transform: rotateX(-130deg); }
+.surprise { margin-top:1.5rem; font-size:1.1rem; line-height:1.7; display:none; }
+.surprise.show { display:block; animation: fadeUp .8s ease; }
+
+.music-ctrl {
+  position:fixed; bottom:18px; right:18px; z-index:50;
+  background:rgba(255,255,255,.9); padding:.6rem 1rem; border-radius:40px;
+  display:flex; align-items:center; gap:.6rem; box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+.music-ctrl button { background:none; border:none; font-size:1.4rem; cursor:pointer; }
+
+.admin {
+  position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:100;
+  display:none; align-items:center; justify-content:center;
+}
+.admin.show { display:flex; }
+.admin-box {
+  background:white; padding:1.8rem; border-radius:20px; max-width:360px; width:90%;
+}
+.admin-box input, .admin-box label { display:block; width:100%; margin:.5rem 0; padding:.6rem; border-radius:8px; border:1px solid #ddd; }
+.admin-only { display:none; margin-top:1rem; }
+
+.back { margin-top:1.5rem; }
+.msg { min-height:1.5rem; margin:.8rem 0; font-weight:600; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.float { animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* Timeline Style เหมือนรูป */
+.timeline-container {
+  position: relative;
+  padding-left: 40px;
+  text-align: left;
+  max-width: 480px;
+  margin: 1rem auto;
+}
+.timeline-line {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #ffb3d9, #ff8fb8);
+  border-radius: 2px;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+}
+.tl-dot {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 28px;
+  height: 28px;
+  background: white;
+  border: 3px solid #ff8fb8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #ff6b9d;
+  box-shadow: 0 2px 8px rgba(255,140,180,0.3);
+}
+.tl-title {
+  color: #ff6b9d;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+.tl-date {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.tl-text {
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.tl-media {
+  margin-top: 0.6rem;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 100%;
+}
+.tl-media img, .tl-media video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.floating-heart-deco {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: floatHeart 4s ease-in-out infinite;
+}
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@media (max-width:480px) {
+  .card { padding:1.5rem 1rem; }
+  .envelope { width:220px; height:145px; }
+  .polaroid { max-width:140px; }
+  .timeline-container { padding-left: 36px; }
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<div class="music-ctrl">
+  <button id="music-btn">🎵</button>
+  <input type="range" id="vol" min="0" max="1" step="0.05" value="0.4" style="width:70px">
+</div>
+<audio id="bgm" loop></audio>
+
+<section id="s1" class="scene active">
+  <div class="card">
+    <h1 style="font-size:1.4rem; margin-bottom:1.2rem;">มีจดหมายฉบับหนึ่ง…<br>ที่ตั้งใจเขียนให้คนพิเศษที่สุด</h1>
+    <div class="envelope-wrap">
+      <div class="envelope" id="env">
+        <div class="flap"></div>
+        <div class="envelope-body">
+          <div class="seal">♡</div>
+          <p class="env-text">To My Favorite Person ♡</p>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="open-btn">เปิดจดหมายของเรา 💗</button>
+  </div>
+</section>
+
+<section id="s2" class="scene">
+  <div class="card">
+    <h2>ก่อนจะเข้าไปดูความทรงจำของเรา<br>ขอรหัสลับของคนพิเศษหน่อยนะ ♡</h2>
+    <p style="margin:.8rem 0; opacity:.8;">รหัสนี้เป็นวันที่เราครบรอบกันนะ</p>
+    <div class="pass-display" id="pass-disp">♡ ♡ / ♡ ♡</div>
+    <div class="keypad" id="keypad"></div>
+    <button class="btn" id="del-btn">ลบ</button>
+    <p class="msg" id="pass-msg"></p>
+  </div>
+</section>
+
+<section id="s3" class="scene">
+  <div class="card">
+    <h1 class="big float" id="main-title">Happy 10 Months Anniversary</h1>
+    <h2 class="sub">10 เดือนแล้วนะคนเก่งของเค้า</h2>
+    <div style="margin:1.2rem 0;">
+      <img id="cover" src="" alt="รูปคู่" style="width:180px;height:180px;object-fit:cover;border-radius:20px;border:6px solid white;box-shadow:0 10px 25px rgba(0,0,0,.1);">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:1rem;">
+      <button class="btn" data-go="4">Our Memories 📸</button>
+      <button class="btn" data-go="5">Our Videos 🎬</button>
+      <button class="btn" data-go="6">My Letter To You 💌</button>
+      <button class="btn" data-go="7">Our Love Timeline 🧸</button>
+      <button class="btn" data-go="8">A Little Surprise 🎁</button>
+    </div>
+  </div>
+</section>
+
+<section id="s4" class="scene">
+  <div class="card">
+    <h2>ทุกภาพที่มีเธออยู่ในนั้น<br>กลายเป็นความทรงจำที่มีค่าที่สุดของเค้า</h2>
+    <div class="gallery" id="gallery"></div>
+    <div class="admin-only">
+      <input type="file" id="photo-in" accept="image/*" multiple style="margin:.5rem 0;">
+      <button class="btn" id="add-photo">เพิ่มรูปภาพ</button>
+    </div>
+    <button class="btn back" data-go="3">กลับหน้าหลัก</button>
+  </div>
+</section>
+
+<section id="s5" class="scene">
+  <div class="card">
+    <h2>Our Videos</h2>
+    <div id="video-box" style="margin:1rem 0;"></div>
+    <div class="admin-only">
+      <input type="file" id="video-in" accept="video/*">
+      <button class="btn" id="add-video">เพิ่มวิดีโอ</button>
+    </div>
+    <button class="btn back" data-go="3">กลับหน้าหลัก</button>
+  </div>
+</section>
+
+<section id="s6" class="scene">
+  <div class="letter" id="letter-content">
+    ถึงอั่ยอ้นของเค้า 💗<br><br>
+    สุขสันต์วันครบรอบ 10 เดือนนะครับ<br><br>
+    ขอบคุณที่เข้ามาเป็นความสุขในทุกๆ วันของเค้า<br>
+    ขอบคุณที่อยู่ด้วยกันในวันที่ดีและวันที่ไม่ค่อยดี<br>
+    ขอบคุณสำหรับทุกเสียงหัวเราะ ทุกความทรงจำ<br>
+    และทุกช่วงเวลาที่เราได้มีกันและกัน<br><br>
+    เค้าอาจจะไม่ได้เป็นคนที่เก่งที่สุด<br>
+    อาจจะไม่ได้ทำทุกอย่างได้ดีเสมอไป<br>
+    แต่เค้าอยากให้รู้ไว้ว่าทุกวันที่มีเธอ<br>
+    เป็นวันที่เค้ามีความสุขมากจริงๆ<br><br>
+    อยากจับมือกันไปแบบนี้เรื่อยๆ<br>
+    อยากมีเธออยู่ในทุกๆ เดือน ทุกๆ ปี<br>
+    และในทุกๆ ความทรงจำต่อจากนี้<br><br>
+    ไม่รู้ว่าอนาคตจะเป็นยังไง<br>
+    แต่เค้าอยากให้มีเธออยู่ในอนาคตของเค้าด้วยนะ<br><br>
+    รักอั่ยอ้นมากๆ เลยนะ<br>
+    ขอให้เราเป็นความสุขของกันและกันไปนานๆ<br><br>
+    Happy 10 Months Anniversary<br>
+    รักที่สุดเลยนะ คนเก่งของเค้า ♡
+  </div>
+  <button class="btn back" data-go="3" style="margin-top:1.5rem;">กลับหน้าหลัก</button>
+</section>
+
+<section id="s7" class="scene">
+  <div class="card" style="max-width:560px;">
+    <h2>Our Love Timeline</h2>
+    <div class="timeline-container" id="timeline"></div>
+    <div class="admin-only" style="margin-top:1rem;">
+      <button class="btn" id="add-tl">+ เพิ่มความทรงจำใน Timeline</button>
+    </div>
+    <button class="btn back" data-go="3">กลับหน้าหลัก</button>
+  </div>
+</section>
+
+<section id="s8" class="scene">
+  <div class="card">
+    <h2>ยังมีของขวัญอีกชิ้นที่เค้าอยากให้เธอนะ</h2>
+    <div class="gift" id="gift">
+      <div class="gift-lid"></div>
+      <div class="gift-body"></div>
+    </div>
+    <div class="surprise" id="surprise-text">
+      ถ้าเลือกย้อนเวลากลับไปได้<br>
+      เค้าก็ยังอยากเลือกเจอเธออยู่ดี<br><br>
+      ขอบคุณที่เป็นเธอนะ<br>
+      และขอบคุณที่ให้เค้าได้เป็นส่วนหนึ่งในชีวิตเธอ<br><br>
+      ขอให้เรามีวันครบรอบด้วยกันอีกหลายๆ ครั้งเลยนะ 💗
+    </div>
+  </div>
+  <button class="btn back" data-go="3" style="margin-top:1rem;">กลับหน้าหลัก</button>
+</section>
+
+<div class="admin" id="admin">
+  <div class="admin-box">
+    <h3 style="margin-bottom:1rem;">โหมดเจ้าของเว็บ ⚙️</h3>
+    <label>รหัสผ่านวันครบรอบ (DD/MM)</label>
+    <input type="text" id="admin-pass" placeholder="เช่น 09/01" maxlength="5">
+    <label>ชื่อเรียกแฟน</label>
+    <input type="text" id="admin-name" value="อั่ยอ้น">
+    <label>ลิงก์เพลงพื้นหลัง (MP3)</label>
+    <input type="text" id="admin-music" placeholder="https://example.com/song.mp3">
+    <p style="font-size:0.75rem;opacity:0.7;margin-top:0.2rem;">หรืออัปโหลดไฟล์เพลงด้านล่าง</p>
+    <input type="file" id="admin-music-file" accept="audio/*" style="margin-top:0.3rem;">
+    <div style="margin-top:1rem; display:flex; gap:.5rem; justify-content:center;">
+      <button class="btn btn-primary" id="save-admin">บันทึก</button>
+      <button class="btn" id="close-admin">ปิด</button>
+    </div>
+    <p style="font-size:.8rem; margin-top:1rem; opacity:.7;">แตะชื่อเรื่องหน้าแรก 5 ครั้งเพื่อเปิดโหมดนี้</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+
+// ========== ใส่ค่า Supabase ที่นี่ (ถ้าต้องการแชร์ข้ามเครื่อง) ==========
+const SUPABASE_URL = 'https://vbmpahqeajdrjwoqcecy.supabase.co';  // ใส่ Project URL
+const SUPABASE_ANON_KEY = 'sb_publishable_a2eV9e-_nb3UjpOY6bJX9Q_X5Qe2wKY';  // ใส่ anon public key
+const USE_CLOUD = SUPABASE_URL && SUPABASE_ANON_KEY;
+let supabaseClient = null;
+if (USE_CLOUD) {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+// =====================================================================
+
+
+// Cloud helpers
+async function cloudLoad() {
+  if (!USE_CLOUD || !supabaseClient) return null;
+  try {
+    const { data: settings, error: e1 } = await supabaseClient.from('settings').select('*').limit(1).single();
+    const { data: photoData, error: e2 } = await supabaseClient.from('photos').select('*').order('created_at', { ascending: true });
+    const { data: videoData, error: e3 } = await supabaseClient.from('videos').select('*').order('created_at', { ascending: true });
+    const { data: tlData, error: e4 } = await supabaseClient.from('timeline').select('*').order('created_at', { ascending: true });
+    if (e1 || e2 || e3 || e4) console.warn('Cloud load warning', e1, e2, e3, e4);
+    return {
+      password: settings?.password,
+      nickname: settings?.nickname,
+      music: settings?.music,
+      photos: (photoData || []).map(p => p.url),
+      videos: (videoData || []).map(v => v.url),
+      timeline: (tlData || []).map(t => ({
+        title: t.title, date: t.date || '', text: t.text || '',
+        media: t.media_url, mediaType: t.media_type
+      }))
+    };
+  } catch (e) { console.error('cloudLoad error', e); return null; }
+}
+
+async function cloudSavePhoto(url) {
+  if (!USE_CLOUD) return;
+  await supabaseClient.from('photos').insert({ url });
+}
+async function cloudSaveVideo(url) {
+  if (!USE_CLOUD) return;
+  await supabaseClient.from('videos').insert({ url });
+}
+async function cloudSaveTimeline(item) {
+  if (!USE_CLOUD) return;
+  await supabaseClient.from('timeline').insert({
+    title: item.title, date: item.date, text: item.text,
+    media_url: item.media, media_type: item.mediaType
+  });
+}
+async function cloudSaveSettings(pass, name) {
+  if (!USE_CLOUD) return;
+  await supabaseClient.from('settings').upsert({ id:1, password:pass, nickname:name });
+}
+
+let password = localStorage.getItem('anniv_pass') || '09/01';
+let nickname = localStorage.getItem('anniv_name') || 'อั่ยอ้น';
+let photos = JSON.parse(localStorage.getItem('anniv_photos') || '[]');
+let videos = JSON.parse(localStorage.getItem('anniv_videos') || '[]');
+let timeline = JSON.parse(localStorage.getItem('anniv_timeline') || '[]');
+let entered = '';
+let tapCount = 0;
+
+function initBG() {
+  const canvas = document.getElementById('bg-canvas');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+  const heartGeo = new THREE.SphereGeometry(0.25, 12, 12);
+  const heartMat = new THREE.MeshBasicMaterial({ color: 0xffb3d9, transparent: true, opacity: 0.65 });
+  const hearts = [];
+  for (let i = 0; i < 35; i++) {
+    const h = new THREE.Mesh(heartGeo, heartMat.clone());
+    h.position.set((Math.random()-0.5)*36, (Math.random()-0.5)*28, (Math.random()-0.5)*18);
+    h.userData.vy = 0.004 + Math.random()*0.008;
+    hearts.push(h);
+    scene.add(h);
+  }
+
+  const starGeo = new THREE.SphereGeometry(0.08, 6, 6);
+  const starMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
+  const stars = [];
+  for (let i = 0; i < 50; i++) {
+    const s = new THREE.Mesh(starGeo, starMat.clone());
+    s.position.set((Math.random()-0.5)*45, (Math.random()-0.5)*35, -8 - Math.random()*15);
+    s.userData.phase = Math.random() * Math.PI * 2;
+    stars.push(s);
+    scene.add(s);
+  }
+
+  camera.position.z = 14;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    hearts.forEach(h => {
+      h.position.y += h.userData.vy;
+      h.rotation.y += 0.012;
+      if (h.position.y > 14) h.position.y = -14;
+    });
+    stars.forEach(s => {
+      s.userData.phase += 0.04;
+      s.material.opacity = 0.35 + Math.sin(s.userData.phase) * 0.4;
+    });
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+}
+
+function go(id) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('s' + id);
+  if (target) {
+    target.classList.add('active');
+    gsap.from(target.querySelector('.card, .letter'), { opacity:0, y:30, duration:0.7, ease:'power2.out' });
+  }
+}
+
+document.getElementById('open-btn').onclick = () => {
+  const env = document.getElementById('env');
+  env.classList.add('open');
+  gsap.to(env, { scale:1.08, duration:0.25, yoyo:true, repeat:1 });
+  setTimeout(() => {
+    spawnHearts(18);
+    setTimeout(() => go(2), 700);
+  }, 900);
+};
+
+function spawnHearts(n = 12) {
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement('div');
+    el.textContent = ['💗','♡','💖'][Math.floor(Math.random()*3)];
+    el.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:55vh; font-size:${1.2+Math.random()*1.8}rem; pointer-events:none; z-index:20;`;
+    document.body.appendChild(el);
+    gsap.to(el, {
+      y: -180 - Math.random()*280,
+      x: (Math.random()-0.5)*220,
+      opacity:0,
+      duration: 1.8 + Math.random()*1.2,
+      ease: 'power1.out',
+      onComplete: () => el.remove()
+    });
+  }
+}
+
+function buildKeypad() {
+  const pad = document.getElementById('keypad');
+  '123456789*0#'.split('').forEach(d => {
+    const b = document.createElement('button');
+    b.textContent = d === '*' || d === '#' ? '' : d;
+    if (d !== '*' && d !== '#') b.onclick = () => addDigit(d);
+    pad.appendChild(b);
+  });
+}
+function addDigit(d) {
+  if (entered.replace('/','').length >= 4) return;
+  entered += d;
+  if (entered.length === 2) entered += '/';
+  updateDisp();
+  if (entered.length === 5) checkPass();
+}
+function updateDisp() {
+  let s = entered.padEnd(5, '♡');
+  document.getElementById('pass-disp').textContent = s.split('').join(' ');
+}
+document.getElementById('del-btn').onclick = () => {
+  entered = entered.replace(/\/$/,'').slice(0,-1);
+  if (entered.length === 2) entered = entered.slice(0,-1);
+  updateDisp();
+};
+function checkPass() {
+  const msg = document.getElementById('pass-msg');
+  if (entered === password) {
+    msg.textContent = 'เย้! เก่งที่สุดเลย 💗';
+    msg.style.color = '#4caf50';
+    spawnHearts(10);
+    setTimeout(() => { go(3); updateCover(); }, 900);
+  } else {
+    msg.textContent = 'อุ๊ย ลองนึกถึงวันของเราดีๆ อีกทีนะ';
+    msg.style.color = '#e91e63';
+    gsap.to('#pass-disp', { x:8, duration:0.08, yoyo:true, repeat:6 });
+    entered = '';
+    updateDisp();
+  }
+}
+
+document.querySelectorAll('[data-go]').forEach(b => {
+  b.onclick = () => go(b.dataset.go);
+});
+
+function updateCover() {
+  const img = document.getElementById('cover');
+  if (photos.length) img.src = photos[0];
+  else img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#FFEAF2" width="200" height="200"/><text x="100" y="105" text-anchor="middle" fill="#ff6b9d" font-size="18" font-family="sans-serif">รูปของเรา</text></svg>`);
+}
+
+function renderGallery() {
+  const g = document.getElementById('gallery');
+  g.innerHTML = '';
+  photos.forEach((src, i) => {
+    const p = document.createElement('div');
+    p.className = 'polaroid';
+    p.style.setProperty('--r', (Math.random()*8-4)+'deg');
+    p.innerHTML = `<img src="${src}"><p>ความทรงจำ ${i+1}</p>`;
+    p.onclick = () => {
+      const lb = document.createElement('div');
+      lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;z-index:200;';
+      lb.innerHTML = `<img src="${src}" style="max-width:92%;max-height:92%;border-radius:12px;">`;
+      lb.onclick = () => lb.remove();
+      document.body.appendChild(lb);
+    };
+    g.appendChild(p);
+  });
+  if (!photos.length) g.innerHTML = '<p style="opacity:.6;padding:1rem;">ยังไม่มีรูปภาพ<br>เข้าโหมดแอดมินเพื่อเพิ่มรูปได้</p>';
+}
+
+document.getElementById('add-photo').onclick = async () => {
+  const input = document.getElementById('photo-in');
+  if (!input.files.length) return alert('เลือกไฟล์รูปก่อนนะ');
+  for (const f of input.files) {
+    let url = null;
+    if (USE_CLOUD && supabaseClient) {
+      const fileName = 'photos/' + Date.now() + '_' + f.name.replace(/[^a-zA-Z0-9.]/g, '_');
+      const { data, error } = await supabaseClient.storage.from('memories').upload(fileName, f);
+      if (error) {
+        console.error('Upload error', error);
+        alert('อัปโหลดไม่สำเร็จ: ' + error.message);
+        continue;
+      }
+      const { data: urlData } = supabaseClient.storage.from('memories').getPublicUrl(fileName);
+      url = urlData.publicUrl;
+      await supabaseClient.from('photos').insert({ url });
+    } else {
+      const r = new FileReader();
+      url = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(f); });
+    }
+    if (url) {
+      photos.push(url);
+      localStorage.setItem('anniv_photos', JSON.stringify(photos));
+      renderGallery();
+      updateCover();
+    }
+  }
+  input.value = '';
+};
+
+function renderVideos() {
+  const box = document.getElementById('video-box');
+  box.innerHTML = '';
+  videos.forEach(v => {
+    const d = document.createElement('div');
+    d.style.margin = '1rem 0';
+    d.innerHTML = `<video controls style="width:100%;max-width:320px;border-radius:12px;"><source src="${v}"></video>`;
+    box.appendChild(d);
+  });
+  if (!videos.length) box.innerHTML = '<p style="opacity:.6;">ยังไม่มีวิดีโอ</p>';
+}
+document.getElementById('add-video').onclick = async () => {
+  const input = document.getElementById('video-in');
+  if (!input.files.length) return;
+  const r = new FileReader();
+  const dataUrl = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(input.files[0]); });
+  videos.push(dataUrl);
+  localStorage.setItem('anniv_videos', JSON.stringify(videos));
+  if (USE_CLOUD) await cloudSaveVideo(dataUrl);
+  renderVideos();
+  input.value = '';
+};
+
+// Timeline แบบรูปที่ส่งมา + รองรับรูป/วิดีโอ
+function initDefaultTimeline() {
+  if (timeline.length === 0) {
+    timeline = [
+      { title: 'วันแรกที่คุยกัน', date: '', text: 'วันที่เริ่มรู้จักกัน\nยังจำได้ว่าวันนั้นหัวใจเต้นแรงแค่ไหน...', media: null, mediaType: null },
+      { title: 'วันที่เริ่มคบกัน', date: '9 มกราคม 2026', text: 'วันที่เราตัดสินใจเดินทางด้วยกันอย่างเป็นทางการ 💗', media: null, mediaType: null },
+      { title: 'เดตแรกของเรา', date: 'เดตแรก', text: 'ความทรงจำที่ยังยิ้มทุกครั้งที่นึกถึง', media: null, mediaType: null },
+      { title: 'ช่วงเวลาที่ประทับใจ', date: '', text: 'ความทรงจำพิเศษ\nทุกช่วงเวลาที่ได้อยู่ด้วยกันล้วนมีความหมาย', media: null, mediaType: null },
+      { title: 'ครบรอบ 10 เดือน', date: '9 พฤศจิกายน 2026', text: 'วันนี้และทุกวันที่ 9 ของเดือน คือวันพิเศษ', media: null, mediaType: null }
+    ];
+    localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+  }
+}
+
+function renderTimeline() {
+  initDefaultTimeline();
+  const container = document.getElementById('timeline');
+  container.innerHTML = '<div class="timeline-line"></div>';
+  timeline.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'tl-item';
+    let mediaHtml = '';
+    if (item.media) {
+      if (item.mediaType === 'image') {
+        mediaHtml = `<div class="tl-media"><img src="${item.media}" alt=""></div>`;
+      } else if (item.mediaType === 'video') {
+        mediaHtml = `<div class="tl-media"><video controls src="${item.media}"></video></div>`;
+      }
+    }
+    const adminBtn = isAdminMode ? `
+      <div style="margin-top:0.6rem;display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">
+        <label class="btn" style="font-size:0.85rem;padding:0.5rem 1rem;margin:0;cursor:pointer;">
+          เลือกไฟล์
+          <input type="file" accept="image/*,video/*" style="display:none;" id="tlfile-${idx}" onchange="previewTL(${idx}, this)">
+        </label>
+        <button class="btn btn-primary" style="font-size:0.85rem;padding:0.5rem 1rem;margin:0;" onclick="saveTL(${idx})">บันทึก</button>
+        <button class="btn" style="font-size:0.85rem;padding:0.5rem 1rem;background:#ff8a8a;color:white;margin:0;" onclick="deleteTimelineItem(${idx})">ลบ</button>
+      </div>` : '';
+    div.innerHTML = `
+      <div class="tl-dot">♡</div>
+      <div class="tl-title">${item.title}</div>
+      ${item.date ? `<div class="tl-date">${item.date}</div>` : ''}
+      <div class="tl-text">${(item.text || '').replace(/\n/g, '<br>')}</div>
+      ${mediaHtml}
+      ${adminBtn}
+    `;
+    container.appendChild(div);
+  });
+}
+
+let isAdminMode = false;
+
+
+
+let pendingTL = {};
+
+function previewTL(idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  pendingTL[idx] = file;
+  const item = input.closest('.tl-item');
+  let media = item.querySelector('.tl-media');
+  if (!media) {
+    media = document.createElement('div');
+    media.className = 'tl-media';
+    item.insertBefore(media, input.closest('div'));
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (file.type.startsWith('video')) {
+      media.innerHTML = `<video controls src="${e.target.result}" style="width:100%;max-height:200px;border-radius:12px;"></video>`;
+    } else {
+      media.innerHTML = `<img src="${e.target.result}" style="width:100%;max-height:200px;object-fit:cover;border-radius:12px;">`;
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveTL(idx) {
+  const file = pendingTL[idx];
+  if (!file) { alert('กรุณาเลือกไฟล์ก่อน'); return; }
+  
+  let url = null;
+  if (USE_CLOUD && supabaseClient) {
+    const fileName = 'timeline/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+    const { error } = await supabaseClient.storage.from('memories').upload(fileName, file, { upsert: true });
+    if (error) {
+      alert('อัปโหลดไม่สำเร็จ: ' + error.message);
+      return;
+    }
+    const { data } = supabaseClient.storage.from('memories').getPublicUrl(fileName);
+    url = data.publicUrl;
+    await supabaseClient.from('timeline').insert({
+      title: timeline[idx].title,
+      date: timeline[idx].date || '',
+      text: timeline[idx].text || '',
+      media_url: url,
+      media_type: file.type.startsWith('video') ? 'video' : 'image'
+    });
+  } else {
+    const reader = new FileReader();
+    url = await new Promise(res => { reader.onload = () => res(reader.result); reader.readAsDataURL(file); });
+  }
+  
+  if (url) {
+    timeline[idx].media = url;
+    timeline[idx].mediaType = file.type.startsWith('video') ? 'video' : 'image';
+    localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+    delete pendingTL[idx];
+    renderTimeline();
+    alert('บันทึกสำเร็จ!');
+  }
+}
+
+async function handleTimelineUpload(idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    if (timeline[idx]) {
+      timeline[idx].media = dataUrl;
+      timeline[idx].mediaType = file.type.startsWith('video') ? 'video' : 'image';
+      localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+      renderTimeline();
+    }
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+async function addMediaToItem(idx) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*,video/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) { alert('ไม่ได้เลือกไฟล์'); return; }
+    alert('กำลังอัปโหลด...');
+    let url = null;
+    try {
+      if (USE_CLOUD && supabaseClient) {
+        const fileName = 'timeline/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+        const { data, error } = await supabaseClient.storage.from('memories').upload(fileName, file, { upsert: true });
+        if (error) {
+          alert('อัปโหลด Storage ไม่สำเร็จ: ' + error.message + '\nจะใช้แบบ local แทน');
+          const r = new FileReader();
+          url = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(file); });
+        } else {
+          const { data: urlData } = supabaseClient.storage.from('memories').getPublicUrl(fileName);
+          url = urlData.publicUrl;
+          alert('อัปโหลดสำเร็จ!');
+        }
+      } else {
+        const r = new FileReader();
+        url = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(file); });
+      }
+      if (url) {
+        timeline[idx].media = url;
+        timeline[idx].mediaType = file.type.startsWith('video') ? 'video' : 'image';
+        localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+        renderTimeline();
+      }
+    } catch (err) {
+      alert('เกิดข้อผิดพลาด: ' + err.message);
+    }
+  };
+  input.click();
+}
+
+async function deleteTimelineItem(idx) {
+  if (!confirm('ลบรายการนี้ใช่ไหม?')) return;
+  timeline.splice(idx, 1);
+  localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+  // Note: Cloud delete would need item id - for now local only
+  renderTimeline();
+}
+
+
+document.getElementById('add-tl').onclick = async () => {
+  const title = prompt('ชื่อเหตุการณ์:');
+  if (!title) return;
+  const date = prompt('วันที่ (ถ้ามี):') || '';
+  const text = prompt('ข้อความความทรงจำ:') || '';
+  const newItem = { title, date, text, media: null, mediaType: null };
+
+  const saveItem = async () => {
+    timeline.push(newItem);
+    localStorage.setItem('anniv_timeline', JSON.stringify(timeline));
+    if (USE_CLOUD) await cloudSaveTimeline(newItem);
+    renderTimeline();
+  };
+
+  if (confirm('อยากเพิ่มรูปหรือวิดีโอไหม?')) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*,video/*';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return saveItem();
+      const r = new FileReader();
+      newItem.media = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(file); });
+      newItem.mediaType = file.type.startsWith('video') ? 'video' : 'image';
+      await saveItem();
+    };
+    input.click();
+  } else {
+    await saveItem();
+  }
+};
+
+document.getElementById('gift').onclick = () => {
+  document.getElementById('gift').classList.add('open');
+  setTimeout(() => {
+    document.getElementById('surprise-text').classList.add('show');
+    spawnHearts(25);
+  }, 600);
+};
+
+const bgm = document.getElementById('bgm');
+const mbtn = document.getElementById('music-btn');
+let playing = false;
+mbtn.onclick = () => {
+  if (playing) { bgm.pause(); mbtn.textContent = '🎵'; }
+  else {
+    if (!bgm.src) bgm.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+    bgm.play().catch(()=>{});
+    mbtn.textContent = '⏸';
+  }
+  playing = !playing;
+};
+document.getElementById('vol').oninput = e => bgm.volume = e.target.value;
+
+document.getElementById('main-title').onclick = () => {
+  tapCount++;
+  if (tapCount >= 5) {
+    isAdminMode = true;
+    document.getElementById('admin').classList.add('show');
+    document.getElementById('admin-pass').value = password;
+    document.getElementById('admin-name').value = nickname;
+    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+    renderTimeline(); // re-render to show add media buttons
+    tapCount = 0;
+  }
+};
+document.getElementById('save-admin').onclick = async () => {
+  const p = document.getElementById('admin-pass').value.trim();
+  if (/^\d{2}\/\d{2}$/.test(p)) {
+    password = p;
+    localStorage.setItem('anniv_pass', p);
+  }
+  nickname = document.getElementById('admin-name').value.trim() || 'อั่ยอ้น';
+  localStorage.setItem('anniv_name', nickname);
+
+  let musicToSave = '';
+
+  // Music URL
+  const musicUrl = document.getElementById('admin-music').value.trim();
+  if (musicUrl) {
+    musicToSave = musicUrl;
+    localStorage.setItem('anniv_music', musicUrl);
+    document.getElementById('bgm').src = musicUrl;
+  }
+
+  // Music file upload
+  const musicFile = document.getElementById('admin-music-file').files[0];
+  if (musicFile) {
+    const r = new FileReader();
+    const dataUrl = await new Promise(res => { r.onload = () => res(r.result); r.readAsDataURL(musicFile); });
+    musicToSave = dataUrl;
+    localStorage.setItem('anniv_music', dataUrl);
+    document.getElementById('bgm').src = dataUrl;
+  }
+
+  if (USE_CLOUD && supabaseClient) {
+    await supabaseClient.from('settings').upsert({ 
+      id: 1, 
+      password: password, 
+      nickname: nickname,
+      music: musicToSave || null
+    });
+  }
+  alert('บันทึกเรียบร้อยแล้ว 💗');
+  document.getElementById('admin').classList.remove('show');
+};
+document.getElementById('close-admin').onclick = () => {
+  document.getElementById('admin').classList.remove('show');
+};
+
+window.onload = async () => {
+  initBG();
+  buildKeypad();
+  
+  // Load from cloud if available
+  if (USE_CLOUD) {
+    const cloud = await cloudLoad();
+    if (cloud) {
+      if (cloud.password) password = cloud.password;
+      if (cloud.nickname) nickname = cloud.nickname;
+      if (cloud.photos && cloud.photos.length) photos = cloud.photos;
+      if (cloud.videos && cloud.videos.length) videos = cloud.videos;
+      if (cloud.timeline && cloud.timeline.length) timeline = cloud.timeline;
+    }
+  }
+  
+  // Load music from cloud first, then local
+  let musicSrc = null;
+  if (USE_CLOUD) {
+    const cloud = await cloudLoad();
+    if (cloud && cloud.music) musicSrc = cloud.music;
+  }
+  if (!musicSrc) musicSrc = localStorage.getItem('anniv_music');
+  if (musicSrc) {
+    document.getElementById('bgm').src = musicSrc;
+    const adminMusic = document.getElementById('admin-music');
+    if (adminMusic && !musicSrc.startsWith('data:')) adminMusic.value = musicSrc;
+  }
+
+  renderGallery();
+  renderVideos();
+  renderTimeline();
+  updateCover();
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.globalTimeline.timeScale(0.4);
+  }
+  setInterval(() => { if (Math.random() > 0.6) spawnHearts(1); }, 4000);
+};
+</script>
+</body>
+</html>
